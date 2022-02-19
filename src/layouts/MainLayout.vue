@@ -2,14 +2,7 @@
   <q-layout view="lHh Lpr lFf">
     <q-header>
       <q-toolbar>
-        <q-btn
-          flat
-          dense
-          round
-          icon="menu"
-          aria-label="Menu"
-          @click="toggleLeftDrawer"
-        />
+        <q-btn flat @click="drawer = !drawer" round dense icon="menu" />
       </q-toolbar>
       <div class="q-px-lg q-pt-xl q-mb-md">
         <div class="text-h3">Todo</div>
@@ -20,12 +13,7 @@
       <q-img src="../statics/mountain.jpg" class="header-image absolute-top" />
     </q-header>
 
-    <q-drawer
-      v-model="leftDrawerOpen"
-      show-if-above
-      :width="250"
-      :breakpoint="600"
-    >
+    <q-drawer v-model="drawer" show-if-above :width="250" :breakpoint="600">
       <q-scroll-area
         style="
           height: calc(100% - 185px);
@@ -60,8 +48,8 @@
           <q-avatar size="56px" class="q-mb-sm">
             <img src="https://cdn.quasar.dev/img/boy-avatar.png" />
           </q-avatar>
-          <div class="text-weight-bold">Razvan Stoenescu</div>
-          <div>@rstoenescu</div>
+          <div class="text-weight-bold">custom user</div>
+          <div>@CustomUser</div>
         </div>
       </q-img>
     </q-drawer>
@@ -76,36 +64,21 @@
 
 <script>
 import { date } from "quasar";
+import { ref } from "vue";
 
-import { defineComponent } from "vue";
-
-export default defineComponent({
-  name: "MainLayout",
-
-  data() {
-    return;
-    {
-      leftDrawerOpen: false;
-    }
-  },
+export default {
   computed: {
     todaysDate() {
       const timeStamp = Date.now();
       return date.formatDate(timeStamp, "dddd D MMMM");
     },
   },
-  // setup() {
-  //   const leftDrawerOpen = ref(false);
-
-  //   return {
-  //     essentialLinks: linksList,
-  //     leftDrawerOpen,
-  //     toggleLeftDrawer() {
-  //       leftDrawerOpen.value = !leftDrawerOpen.value;
-  //     },
-  //   };
-  // },
-});
+  setup() {
+    return {
+      drawer: ref(false),
+    };
+  },
+};
 </script>
 
 <style lang="scss" >
